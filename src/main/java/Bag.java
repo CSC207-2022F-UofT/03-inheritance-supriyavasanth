@@ -4,7 +4,6 @@
  * the TODOs we have left you. You may find the readings in chapter
  * 1. Introduction to Java helpful.
  */
-
 public abstract class Bag {
     /*
      * TODO: Create the following private instance variables
@@ -13,8 +12,10 @@ public abstract class Bag {
      *       - an int named capacity
      *       - an array of Strings named contents
      */
-
-
+    private String color;
+    private int numberOfContents;
+    private int capacity;
+    private String[] contents;
 
 
     /*
@@ -27,7 +28,16 @@ public abstract class Bag {
      * its contents.)
      */
 
-
+    /**
+     * Creates a new Bag.
+     *
+     * @param color         the colour of this Bag.
+     * @param capacity      the number of items this Bag can hold.
+     */
+    public Bag(String color, int capacity) {
+        this.color = color;
+        this.capacity = capacity;
+    }
 
 
     /*
@@ -38,7 +48,17 @@ public abstract class Bag {
      *           - getCapacity
      */
 
+    public String getColor(){
+        return color;
+    }
 
+    public int getNumberOfContents(){
+        return  numberOfContents;
+    }
+
+    public int getCapacity(){
+        return capacity;
+    }
 
 
     /*
@@ -46,8 +66,9 @@ public abstract class Bag {
      *       color of this bag to the given color.
      */
 
-
-
+    public void setColor(String colour){
+        this.color = colour;
+    }
 
 
     /*
@@ -61,8 +82,39 @@ public abstract class Bag {
      *       and false otherwise.
      */
 
+    public boolean addItem(String item){
+        if (this.numberOfContents < this.capacity)
+        {
+            String[] newContents = new String [this.numberOfContents + 1];
 
+            if (this.numberOfContents == 0)
+            {
+                newContents[0] = item;
+                this.numberOfContents += 1;
+            }
 
+            else
+            {
+                for (int i = 0; i < numberOfContents; i++) {
+                    newContents[i] = this.contents[i];
+                }
+
+                newContents[this.numberOfContents] = item;
+                this.numberOfContents += 1;
+            }
+
+            this.contents = new String[newContents.length];
+
+            for (int i = 0; i < newContents.length; i++)
+            {
+                this.contents[i] = newContents[i];
+            }
+
+            return true;
+        }
+
+        return false;
+    }
 
 
     /**
@@ -76,8 +128,30 @@ public abstract class Bag {
      * @return
      */
 
+    public String popItem(){
+        System.out.println(this.numberOfContents);
+        if (this.numberOfContents == 0)
+        {
+            return null;
+        }
 
+        String poppedItem = this.contents[numberOfContents - 1];
 
+        String[] newContents = new String [this.numberOfContents - 1];
+        for (int i = 0; i < numberOfContents - 1; i++)
+        {
+            newContents[i] = this.contents[i];
+        }
+
+        this.numberOfContents -= 1;
+
+        for (int i = 0; i < newContents.length; i++)
+        {
+            this.contents[i] = newContents[i];
+        }
+
+        return poppedItem;
+    }
 
 
     /**
@@ -87,7 +161,7 @@ public abstract class Bag {
      */
     public void increaseCapacity(int n) {
         // TODO: Implement this method.
-
+        this.capacity = this.capacity + n;
     }
 
     /**
